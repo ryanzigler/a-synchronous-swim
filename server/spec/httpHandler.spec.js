@@ -24,8 +24,7 @@ describe('server responses', () => {
     let moves = ['up', 'down', 'left', 'right'];
     let random = moves[Math.floor(Math.random() * 4)];
     let {req, res} = server.mock(random, 'GET');
-    console.log({req, res});
-
+    //console.log({req, res});
     httpHandler.router(req, res);
 
     expect(res._responseCode).to.equal(200);

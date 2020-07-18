@@ -2,15 +2,21 @@
 
   const serverUrl = 'http://127.0.0.1:3000';
 
-  const fetchSwimCommand = () => {
-    $.ajax({
-      type: 'GET',
-      url: serverUrl,
-      success: (res) => {
-        SwimTeam.move(res);
-      }
+  const fetchRandomSwimCommand = () => {
+
+    $.get(serverUrl, (data) => {
+      SwimTeam.move(data);
     });
+    // $.ajax({
+    //   type: 'GET',
+    //   url: serverUrl,
+    //   success: (res) => {
+    //     SwimTeam.move(res);
+    //   }
+    // });
   };
+
+  setInterval(fetchRandomSwimCommand, 2000);
 
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
