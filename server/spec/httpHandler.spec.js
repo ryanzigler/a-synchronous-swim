@@ -12,7 +12,6 @@ describe('server responses', () => {
 
   it('should respond to a OPTIONS request', (done) => {
     let {req, res} = server.mock('/', 'OPTIONS');
-
     httpHandler.router(req, res);
     expect(res._responseCode).to.equal(200);
     expect(res._ended).to.equal(true);
@@ -22,7 +21,16 @@ describe('server responses', () => {
   });
 
   it('should respond to a GET request for a swim command', (done) => {
-    // write your test here
+    let moves = ['up', 'down', 'left', 'right'];
+    let random = moves[Math.floor(Math.random() * 4)];
+    let {req, res} = server.mock(random, 'GET');
+    console.log({req, res});
+
+    httpHandler.router(req, res);
+
+    expect(res._responseCode).to.equal(200);
+    expect(res._ended).to.equal(true);
+    // expect(res._data.toString()).to.equal(true);
     done();
   });
 

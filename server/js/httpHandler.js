@@ -2,12 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const headers = require('./cors');
 const multipart = require('./multipartUtils');
+//const messageQueue = require('./messageQueue.js');
 
 // Path for the background image ///////////////////////
 module.exports.backgroundImageFile = path.join('.', 'background.jpg');
 ////////////////////////////////////////////////////////
 
-let messageQueue = null;
+let messageQueue = require('./messageQueue.js');
+console.log(messageQueue);
 module.exports.initialize = (queue) => {
   messageQueue = queue;
 };
