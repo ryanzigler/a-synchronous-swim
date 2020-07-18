@@ -2,29 +2,25 @@
 
   const serverUrl = 'http://127.0.0.1:3000';
 
-  const fetchRandomSwimCommand = () => {
-    //console.log('fetch from client');
-    // $.get({
-    //   serverUrl,
-    //   success: (data) => {
+  const fetchCommand = () => {
 
-    //     SwimTeam.move(data);
-    //   }
-    // });
     $.ajax({
       type: 'GET',
       url: serverUrl,
       success: (data) => {
-        console.log('success: ', data);
+        //console.log('success: ', data);
         SwimTeam.move(data);
       },
       error: (res) => {
         console.log('error: ', res);
+      },
+      complete: () => {
+        setTimeout(fetchCommand, 500);
       }
     });
   };
 
-  setInterval(fetchRandomSwimCommand, 8000);
+  fetchCommand();
 
 
   /////////////////////////////////////////////////////////////////////
