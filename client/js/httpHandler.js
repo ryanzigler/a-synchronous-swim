@@ -3,27 +3,36 @@
   const serverUrl = 'http://127.0.0.1:3000';
 
   const fetchRandomSwimCommand = () => {
+    //console.log('fetch from client');
+    // $.get({
+    //   serverUrl,
+    //   success: (data) => {
 
-    $.get(serverUrl, (data) => {
-      SwimTeam.move(data);
-    });
-    // $.ajax({
-    //   type: 'GET',
-    //   url: serverUrl,
-    //   success: (res) => {
-    //     SwimTeam.move(res);
+    //     SwimTeam.move(data);
     //   }
     // });
+    $.ajax({
+      type: 'GET',
+      url: serverUrl,
+      success: (data) => {
+        console.log('success: ', data);
+        SwimTeam.move(data);
+      },
+      error: (res) => {
+        console.log('error: ', res);
+      }
+    });
   };
 
-  setInterval(fetchRandomSwimCommand, 2000);
+  setInterval(fetchRandomSwimCommand, 8000);
+
 
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
   // Note: remember to fix the URL below.
   /////////////////////////////////////////////////////////////////////
 
-  const ajaxFileUplaod = (file) => {
+  const ajaxFileUpload = (file) => {
     var formData = new FormData();
     formData.append('file', file);
     $.ajax({

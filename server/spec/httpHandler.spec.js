@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const expect = require('chai').expect;
 const server = require('./mockServer');
-
 const httpHandler = require('../js/httpHandler');
 
 
@@ -32,6 +31,8 @@ describe('server responses', () => {
     // expect(res._data.toString()).to.equal(true);
     done();
   });
+
+
 
   xit('should respond with 404 to a GET request for a missing background image', (done) => {
     httpHandler.backgroundImageFile = path.join('.', 'spec', 'missing.jpg');

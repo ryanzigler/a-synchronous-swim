@@ -9,20 +9,40 @@ const messageQueue = require('./messageQueue.js');
 module.exports.backgroundImageFile = path.join('.', 'background.jpg');
 ////////////////////////////////////////////////////////
 
-module.exports.initialize = (queue) => {
-  messageQueue = queue;
-};
+// module.exports.initialize = (queue) => {
+//   return (req, res) => {
+//     ;
+//     res.writeHead(200, headers);
+//     res.end(command);
+//   }
+// messageQueue = queue;
+//console.log(messageQueue);
+// };
+
 
 module.exports.router = (req, res, next = ()=>{}) => {
-  // console.log('Serving request type ' + req.method + ' for url ' + req.url);
+  console.log('Serving request type ' + req.method + ' for url ' + req.url);
 
   // if statement for req.method === GET
-  var response;
   if (req.method === 'GET') {
+    // messageQueue.enqueue(data);
     response = messageQueue.dequeue();
+    res.writeHead(200, headers);
+    res.end(response);
+    next();
   }
 
-  res.writeHead(200, headers);
-  res.end(response);
-  next(); // invoke next() at the end of a request to help with testing!
+  if (req.method === 'POST') {
+    res.writeHead(200, headers);
+    res.end(response);
+    next(); // invoke next() at the end of a request to help with testing!
+  }
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(200, headers);
+    res.end(res);
+  }
 };
+
+
+
