@@ -24,7 +24,6 @@ module.exports.router = (req, res, next = ()=>{}) => {
       fs.readFile(module.exports.backgroundImageFile, (err, data) => {
         if (err) {
           res.writeHead(404, headers);
-
         } else {
           res.writeHead(200, headers);
           res.write(data, 'binary');
@@ -35,10 +34,15 @@ module.exports.router = (req, res, next = ()=>{}) => {
     }
   }
 
-  if (req.method === 'POST') {
+  if (req.method === 'POST' && req.url === '/backgroundjpg') {
+    // var imageData = Buffer.alloc(0);
+
+    // req.on('data', () = > {
+    //   imageData = Buffer.concat([imageData,])
+    // })
     res.writeHead(200, headers);
     res.end(response);
-    next(); // invoke next() at the end of a request to help with testing!
+    // next(); // invoke next() at the end of a request to help with testing!
   }
 
   if (req.method === 'OPTIONS') {
