@@ -34,15 +34,21 @@ module.exports.router = (req, res, next = ()=>{}) => {
     }
   }
 
-  if (req.method === 'POST' && req.url === '/backgroundjpg') {
-    // var imageData = Buffer.alloc(0);
+  if (req.method === 'POST' && req.url === '/background.jpg') {
+    var fileData = Buffer.alloc(0);
 
-    // req.on('data', () = > {
-    //   imageData = Buffer.concat([imageData,])
-    // })
-    res.writeHead(200, headers);
-    res.end(response);
-    // next(); // invoke next() at the end of a request to help with testing!
+    req.on('data', (chunk) => {
+      fileData = Buffer.concat([fileData, chunk]);
+    });
+
+    req.on('end', () => {
+      var file = multipart.getFile(fileData);
+      fs.writeFile(module.exports.backgroundImageFile, file.data, (err) => {
+        res.writeHead(err ? 404 : 201, headers);
+        res.end();
+        next();
+      });
+    });
   }
 
   if (req.method === 'OPTIONS') {
@@ -52,5 +58,5 @@ module.exports.router = (req, res, next = ()=>{}) => {
   }
 };
 
-
-
+// httpHandler.router(get.req, get.res, () => {
+// expect(Buffer.compare(fileData, get.res._data)).to.equal(0);
